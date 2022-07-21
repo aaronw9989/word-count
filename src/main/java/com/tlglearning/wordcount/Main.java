@@ -1,29 +1,33 @@
 package com.tlglearning.wordcount;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class Main {
 
   private static final String TEST_FILE_NAME = "hound-of-the-baskervilles.txt";
 
-  public static void main(String[] args) throws URISyntaxException, IOException {
-    // TODO: use a class loader that looks at the class the
-    // URL - uniform resource locator, locates resources in a network (every URL is a URI, but not the opposite is true)
-    // URI - uniform resource identifier, identifies our resource
-    URI uri = Main.class
-        .getClassLoader()
-        .getResource(TEST_FILE_NAME)
-        .toURI();
+  public static void main(String[] args) throws IOException {
 
-    Path path = Paths.get(uri);
-    String text = Files.readString(path);
-    WordCounter counter = new WordCounter(text);
-    // TODO Do something with counter.
-    System.out.println(counter);
+    // What does class loader do?
+    // All resources in try with resources must implement closeable interface
+    try (
+        InputStream input = Main.class.getClassLoader().getResourceAsStream(TEST_FILE_NAME);
+        // Reader will reach a stream of chars
+        Reader reader = new InputStreamReader(input);
+        BufferedReader buffer = new BufferedReader(reader);
+    ) {
+      WordCounter counter = new WordCounter();
+      String line;
+      while ((line = buffer.readLine()) != null) {
+        // TODO Pass line to a method of WordCounter
+        counter.add(line);
+      }
+      // TODO Do something with our WordCounter
+      System.out.println(counter);
+    }
   }
 }
