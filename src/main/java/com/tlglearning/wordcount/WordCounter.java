@@ -8,6 +8,12 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 // final on a class makes it to where the class can NOT be inherited
+
+/**
+ * Demonstrates the practice of word counting, used (for example) in authorship studies.
+ * This demonstration uses (in the included methods) implementation of the {@link java.util.Map},
+ * {@link java.util.Map.Entry} and {@link java.util.stream.Stream} interfaces.
+ */
 public class WordCounter {
 
   private static final Set<String> BORING_WORDS = Set.of("and", "of", "the", "in", "on", "i", "then", "than", "out", "a", "if");

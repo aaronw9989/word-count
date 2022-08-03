@@ -9,10 +9,24 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Main {
+public final class Main {
 
   private static final String TEST_FILE_NAME = "hound-of-the-baskervilles.txt";
 
+  private Main() {
+  }
+
+  /**
+   * Creates an instance of {@link WordCounter}, using it to process the contents of "The Hound of
+   * the Baskervilles", by Arthur Conan Doyle. After processing, the word counts (excluding short
+   * words) are listed in descending order.
+   * <p>This method assumes that a text file named {@code hound-of-the-baskervilles.txt} is located
+   * on the classpath; otherwise (or if that file cannot be read for some reason), an instance of
+   * {@link IOException} is thrown.</p>
+   *
+   * @param args Command-line arguments (currently ignored).
+   * @throws IOException Thrown if input file cannot be located or read.
+   */
   public static void main(String[] args) throws IOException {
 
     // What does class loader do?

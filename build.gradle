@@ -24,3 +24,22 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+javadoc {
+    // The project directory is the word-count directory, because that's where our build.gradle is
+    destinationDir = file("${projectDir}/docs/api")
+    options {
+        links 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+    }
+
+}
+
+// directories we are going to clean
+clean {
+    delete += file("${projectDir}/docs/api")
+}
+
+assemble {
+    // adding something to set when we use dependOn
+    dependsOn javadoc
+}
