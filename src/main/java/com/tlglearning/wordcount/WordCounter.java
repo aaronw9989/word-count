@@ -1,12 +1,16 @@
 package com.tlglearning.wordcount;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 // final on a class makes it to where the class can NOT be inherited
 public class WordCounter {
+
+  private static final Set<String> BORING_WORDS = Set.of("and", "of", "the", "in", "on", "i", "then", "than", "out", "a", "if");
 
   // the final keyword just means it can only point to one place in memory
   // thus, we CAN NOT point it to something else
@@ -61,14 +65,13 @@ public class WordCounter {
 
   // Method is package private
   void countWords(String[] words) {
-    for (String word : words) {
-      // Done Check if word is already present as a key in counts;
-      //  if it's not present, add it to counts with a value of 1;
-      //  otherwise, get the current value, add 1 to it, and update the map with the new value.
-      counts.put(word, get(word) + 1);
-      // increment total words
-      totalWords++;
-    }
+    Arrays
+        .stream(words)
+        .map(String::trim)
+        .filter((s) -> !s.isEmpty())
+        .filter((word) -> word.length() > 5)
+        .filter((s) -> !BORING_WORDS.contains(s))
+        .forEach((word) -> counts.put(word, 1 + counts.getOrDefault(word, 0)));
   }
 
 }

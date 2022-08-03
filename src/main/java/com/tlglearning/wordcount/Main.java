@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Main {
 
@@ -26,8 +29,16 @@ public class Main {
         // TODO Pass line to a method of WordCounter
         counter.add(line);
       }
-      // TODO Do something with our WordCounter
-      System.out.println(counter);
+
+      counter
+          .getCounts()
+          .entrySet() // returns a set of key value pairs
+          .stream()
+          // .sorted(Comparator.comparing((Entry<String, Integer> entry) -> entry.getValue()).reversed())
+          .sorted(Comparator.comparing(Entry<String, Integer>::getValue).reversed())
+          .limit(10)
+          .forEach(System.out::println);
+
     }
   }
 }
